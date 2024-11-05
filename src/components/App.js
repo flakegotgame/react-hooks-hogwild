@@ -61,6 +61,7 @@ const App = () => {
       <ul>
         {hogs.map((hog, index) => (
           <li key={index}>
+              <img src={hog.image} alt={hog.name} width="200" /> {/* Display hog image */}
               {hog.name} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
             <button onClick={() => toggleHogVisibility(index)}>
               {hog.visible ? 'Hide' : 'Show'}
