@@ -22,6 +22,7 @@ const App = () => {
     ? hogs.filter(hog => hog.greased && hog.visible)
     : hogs.filter(hog => hog.visible);
 
+  console.log(filteredHogs)
   const deleteHog = (index) => {
     const updatedHogs = hogs.filter((_, i) => i !== index);
     setHogs(updatedHogs);
@@ -36,6 +37,8 @@ const App = () => {
     });
     setHogs(updatedHogs);
   };
+
+
 
   return (
     <div className="App">
@@ -56,9 +59,9 @@ const App = () => {
         </label>
       </div>
       <ul>
-        {filteredHogs.map((hog, index) => (
+        {hogs.map((hog, index) => (
           <li key={index}>
-              {hog.na=me} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
+              {hog.name} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
             <button onClick={() => toggleHogVisibility(index)}>
               {hog.visible ? 'Hide' : 'Show'}
             </button>
