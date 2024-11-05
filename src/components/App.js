@@ -58,7 +58,7 @@ const App = () => {
       <ul>
         {filteredHogs.map((hog, index) => (
           <li key={index}>
-            {hog.name} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
+              {hog.na=me} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
             <button onClick={() => toggleHogVisibility(index)}>
               {hog.visible ? 'Hide' : 'Show'}
             </button>
@@ -71,3 +71,5 @@ const App = () => {
 };
 
 export default App;
+
+
