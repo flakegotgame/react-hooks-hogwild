@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Nav from './Nav';  
 import hogsData from '../porkers_data'; 
+import { Card, Image, Button, Checkbox } from 'semantic-ui-react'; 
 
 const App = () => {
   const [hogs, setHogs] = useState(hogsData);
@@ -19,10 +20,9 @@ const App = () => {
   };
 
   const filteredHogs = showGreased
-    ? hogs.filter(hog => hog.greased && hog.visible)
-    : hogs.filter(hog => hog.visible);
+    ? hogs.filter(hog => hog.greased) 
+    : hogs; 
 
-  console.log(filteredHogs)
   const deleteHog = (index) => {
     const updatedHogs = hogs.filter((_, i) => i !== index);
     setHogs(updatedHogs);
@@ -38,8 +38,6 @@ const App = () => {
     setHogs(updatedHogs);
   };
 
-
-
   return (
     <div className="App">
       <Nav />
@@ -50,30 +48,41 @@ const App = () => {
       </div>
       <div>
         <label>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={showGreased}
             onChange={() => setShowGreased(prev => !prev)}
+            label="Show Greased Hogs"
           />
-          Show Greased Hogs
         </label>
       </div>
-      <ul>
-        {hogs.map((hog, index) => (
-          <li key={index}>
-              <img src={hog.image} alt={hog.name} width="200" /> {/* Display hog image */}
-              {hog.name} - {hog.weight} lbs {hog.greased ? '(Greased)' : ''}
-            <button onClick={() => toggleHogVisibility(index)}>
-              {hog.visible ? 'Hide' : 'Show'}
-            </button>
-            <button onClick={() => deleteHog(index)}>Delete</button>
-          </li>
+
+      <div className="ui grid container">
+        {filteredHogs.map((hog, index) => (
+          <div className="ui eight wide column" key={index}>
+            <Card>
+              <Image src={hog.image} alt={hog.name} />
+              <Card.Content>
+                <Card.Header>{hog.name}</Card.Header>
+                <Card.Meta>{hog.weight} lbs</Card.Meta>
+                <Card.Description>
+                  {hog.greased ? '(Greased)' : ''}
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <Button onClick={() => toggleHogVisibility(index)}>
+                  {hog.visible ? 'Hide' : 'Show'}
+                </Button>
+                <Button onClick={() => deleteHog(index)} color="red">
+                  Delete
+                </Button>
+              </Card.Content>
+            </Card>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
 export default App;
-
 
